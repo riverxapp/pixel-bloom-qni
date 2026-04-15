@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About | Chirag Dodiya</title>
+  <meta name="description" content="About Chirag Dodiya, Senior Software Engineer." />
+  <style>
+    :root {
+      --bg: #0b1220;
+      --bg-elevated: #101a2f;
+      --surface: rgba(16, 26, 47, 0.78);
+      --surface-strong: #101a2f;
+      --text: #eaf0ff;
+      --muted: #a9b6d3;
+      --border: rgba(255, 255, 255, 0.10);
+      --primary: #6ea8ff;
+      --primary-strong: #3f86ff;
+      --accent: #7ee0c3;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+      --radius: 20px;
+      --container: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(63, 134, 255, 0.18), transparent 34%),
+        radial-gradient(circle at top right, rgba(126, 224, 195, 0.12), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(100% - 2rem, var(--container));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(11, 18, 32, 0.72);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 76px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: linear-gradient(135deg, var(--primary-strong), var(--accent));
+      box-shadow: 0 10px 24px rgba(63, 134, 255, 0.35);
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a[aria-current="page"] {
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 5.5rem 0 3rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2rem;
+      align-items: stretch;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(126, 224, 195, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(126, 224, 195, 0.18);
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    h1, h2, h3, h4 {
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4.8rem);
+      letter-spacing: -0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .lead {
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 62ch;
+      margin: 0 0 1.8rem;
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+      margin-top: 1.6rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      padding: 0.95rem 1.25rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      will-change: transform;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-strong), var(--primary));
+      color: #fff;
+      box-shadow: 0 14px 28px rgba(63, 134, 255, 0.25);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(16, 26, 47, 0.92), rgba(16, 26, 47, 0.72));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+    }
+
+    .profile-card {
+      padding: 1.5rem;
+      display: grid;
+      gap: 1rem;
+      align-content: start;
+      min-height: 100%;
+    }
+
+    .profile-photo {
+      aspect-ratio: 1 / 1;
+      width: 100%;
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(63, 134, 255, 0.18), rgba(126, 224, 195, 0.14)),
+        url("https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80") center/cover;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .profile-meta {
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .profile-meta .name {
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    .profile-meta .role {
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .quick-facts {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+    }
+
+    .fact {
+      padding: 0.9rem;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+    }
+
+    .fact .label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .fact .value {
+      font-weight: 700;
+    }
+
+    .section {
+      padding: 1rem 0 4.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 1rem;
+      margin-bottom: 1.35rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      letter-spacing: -0.04em;
+    }
+
+    .section-copy {
+      color: var(--muted);
+      max-width: 68ch;
+      margin: 0.55rem 0 0;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1.2rem;
+    }
+
+    .card {
+      padding: 1.4rem;
+      border-radius: var(--radius);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    .tag {
+      padding: 0.62rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .experience-list {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .experience-item {
+      padding: 1rem 1.05rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid var(--border);
+    }
+
+    .experience-item strong {
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    .experience-item p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .cta {
+      padding: 1.5rem;
+      background: linear-gradient(135deg, rgba(63, 134, 255, 0.16), rgba(126, 224, 195, 0.10));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 0.65rem;
+      margin: 1rem 0 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+    }
+
+    .contact-list a {
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 0.18em;
+    }
+
+    footer {
+      padding: 1rem 0 2.5rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .content-grid,
+      .cta-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem 0;
+      }
+      .hero {
+        padding-top: 3.5rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(100% - 1.2rem, var(--container)); }
+      .nav-links { gap: 0.9rem; }
+      .quick-facts { grid-template-columns: 1fr; }
+      .actions { flex-direction: column; }
+      .btn { width: 100%; }
+      .section { padding-bottom: 3.5rem; }
+      .card, .profile-card, .cta { padding: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav" aria-label="Primary">
+      <a class="brand" href="index.html" aria-label="Chirag Dodiya homepage">
+        <span class="brand-mark">CD</span>
+        <span>Chirag Dodiya</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html" aria-current="page">About</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">About Me</span>
+          <h1>Senior Software Engineer building reliable products with a strong engineering mindset.</h1>
+          <p class="lead">
+            I’m Chirag Dodiya, a Senior Software Engineer focused on designing scalable systems,
+            shipping maintainable code, and turning business needs into clear technical outcomes.
+            I enjoy working across product, architecture, and delivery to create software that is
+            fast, resilient, and easy to evolve.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="index.html#contact">Contact Me</a>
+            <a class="btn btn-secondary" href="index.html#projects">View Projects</a>
+          </div>
+        </div>
+
+        <aside class="panel profile-card">
+          <div class="profile-photo" role="img" aria-label="Professional portrait placeholder"></div>
+          <div class="profile-meta">
+            <div class="name">Chirag Dodiya</div>
+            <div class="role">Senior Software Engineer</div>
+          </div>
+          <div class="quick-facts" aria-label="Quick facts">
+            <div class="fact">
+              <span class="label">Focus</span>
+              <span class="value">Scalable web systems</span>
+            </div>
+            <div class="fact">
+              <span class="label">Strength</span>
+              <span class="value">Clean architecture</span>
+            </div>
+            <div class="fact">
+              <span class="label">Approach</span>
+              <span class="value">Product-first delivery</span>
+            </div>
+            <div class="fact">
+              <span class="label">Value</span>
+              <span class="value">Reliable execution</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Professional overview</h2>
+            <p class="section-copy">
+              A concise summary of my background, technical strengths, and the way I contribute to
+              modern software teams.
+            </p>
+          </div>
+        </div>
+
+        <div class="content-grid">
+          <article class="card">
+            <h3>Biography</h3>
+            <p class="section-copy" style="margin-top:0;">
+              I’m a Senior Software Engineer with experience building and evolving full-stack
+              applications, designing maintainable backend services, and improving system reliability.
+              My work centers on writing thoughtful code, making pragmatic technical decisions, and
+              collaborating closely with stakeholders to deliver measurable impact.
+            </p>
+
+            <h3 style="margin-top:1.4rem;">Core skills</h3>
+            <div class="tag-list" aria-label="Skills">
+              <span class="tag">JavaScript / TypeScript</span>
+              <span class="tag">React</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">REST APIs</span>
+              <span class="tag">System Design</span>
+              <span class="tag">Database Design</span>
+              <span class="tag">Cloud Deployment</span>
+              <span class="tag">Performance Optimization</span>
+              <span class="tag">Code Reviews</span>
+              <span class="tag">Agile Delivery</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Experience themes</h3>
+            <div class="experience-list">
+              <div class="experience-item">
+                <strong>End-to-end product ownership</strong>
+                <p>From requirements and architecture to launch and iteration, with a focus on business outcomes.</p>
+              </div>
+              <div class="experience-item">
+                <strong>Scalable and maintainable engineering</strong>
+                <p>Building systems that stay clean, testable, and resilient as complexity grows.</p>
+              </div>
+              <div class="experience-item">
+                <strong>Cross-functional collaboration</strong>
+                <p>Partnering with product, design, and engineering teams to move quickly without sacrificing quality.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta">
+          <div class="cta-grid">
+            <div>
+              <h2 class="section-title">Let’s build something impactful.</h2>
+              <p class="section-copy">
+                If you’re looking for a Senior Software Engineer who brings technical depth, product
+                thinking, and dependable execution, I’d be glad to connect.
+              </p>
+            </div>
+            <div>
+              <a class="btn btn-primary" href="mailto:chiragdodiya@example.com">Email Chirag</a>
+              <ul class="contact-list">
+                <li>Email: <a href="mailto:chiragdodiya@example.com">chiragdodiya@example.com</a></li>
+                <li>LinkedIn: <a href="https://www.linkedin.com" target="_blank" rel="noopener">View profile</a></li>
+                <li>Portfolio: <a href="index.html">Return to homepage</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p style="margin:0;">© 2026 Chirag Dodiya. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

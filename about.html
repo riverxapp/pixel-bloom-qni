@@ -75,11 +75,20 @@
       background: var(--hero-bg);
       color: var(--text);
       line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     a {
       color: inherit;
       text-decoration: none;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--primary) 75%, white);
+      outline-offset: 3px;
+      border-radius: 12px;
     }
 
     img { max-width: 100%; display: block; }
@@ -112,6 +121,7 @@
       gap: 0.85rem;
       font-weight: 800;
       letter-spacing: 0.02em;
+      min-width: 0;
     }
 
     .brand-mark {
@@ -124,24 +134,29 @@
       background: linear-gradient(135deg, var(--primary-strong), var(--accent));
       box-shadow: 0 10px 24px rgba(63, 134, 255, 0.35);
       font-weight: 800;
+      flex: none;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 1.4rem;
+      gap: 1.1rem;
       flex-wrap: wrap;
     }
 
     .nav-links a {
       color: var(--muted);
-      font-weight: 600;
-      transition: color 0.2s ease;
+      font-weight: 650;
+      transition: color 0.2s ease, background-color 0.2s ease;
+      padding: 0.55rem 0.8rem;
+      border-radius: 999px;
     }
 
     .nav-links a:hover,
+    .nav-links a:focus-visible,
     .nav-links a[aria-current="page"] {
       color: var(--text);
+      background: var(--surface-muted);
     }
 
     .hero {
@@ -178,6 +193,7 @@
       font-size: clamp(2.5rem, 5vw, 4.8rem);
       letter-spacing: -0.05em;
       margin-bottom: 1rem;
+      text-wrap: balance;
     }
 
     .lead {
@@ -203,8 +219,9 @@
       border-radius: 999px;
       border: 1px solid transparent;
       font-weight: 700;
-      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
       will-change: transform;
+      min-height: 48px;
     }
 
     .btn:hover { transform: translateY(-1px); }
@@ -215,10 +232,18 @@
       box-shadow: 0 14px 28px rgba(63, 134, 255, 0.25);
     }
 
+    .btn-primary:hover {
+      box-shadow: 0 18px 32px rgba(63, 134, 255, 0.30);
+    }
+
     .btn-secondary {
       background: var(--btn-secondary-bg);
       border-color: var(--border);
       color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: color-mix(in srgb, var(--btn-secondary-bg) 85%, var(--text) 8%);
     }
 
     .panel {
@@ -300,6 +325,7 @@
     .section-title {
       font-size: clamp(1.7rem, 3vw, 2.4rem);
       letter-spacing: -0.04em;
+      text-wrap: balance;
     }
 
     .section-copy {
@@ -393,6 +419,12 @@
       color: var(--text);
       text-decoration: underline;
       text-underline-offset: 0.18em;
+      word-break: break-word;
+    }
+
+    .contact-list a:hover,
+    .contact-list a:focus-visible {
+      color: var(--primary);
     }
 
     footer {
@@ -419,23 +451,35 @@
 
     @media (max-width: 640px) {
       .container { width: min(100% - 1.2rem, var(--container)); }
-      .nav-links { gap: 0.9rem; }
+      .nav-links { gap: 0.5rem; }
+      .nav-links a { padding: 0.5rem 0.7rem; }
       .quick-facts { grid-template-columns: 1fr; }
       .actions { flex-direction: column; }
       .btn { width: 100%; }
       .section { padding-bottom: 3.5rem; }
       .card, .profile-card, .cta { padding: 1.1rem; }
+      h1 { letter-spacing: -0.04em; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>
 <body>
   <header class="site-header">
-    <div class="container nav" aria-label="Primary">
+    <div class="container nav">
       <a class="brand" href="index.html" aria-label="Chirag Dodiya homepage">
-        <span class="brand-mark">CD</span>
+        <span class="brand-mark" aria-hidden="true">CD</span>
         <span>Chirag Dodiya</span>
       </a>
-      <nav class="nav-links">
+      <nav class="nav-links" aria-label="Primary">
         <a href="index.html">Home</a>
         <a href="about.html" aria-current="page">About</a>
         <a href="index.html#projects">Projects</a>
@@ -444,28 +488,28 @@
     </div>
   </header>
 
-  <main>
-    <section class="hero">
+  <main id="main-content">
+    <section class="hero" aria-labelledby="about-title">
       <div class="container hero-grid">
         <div>
           <span class="eyebrow">About Me</span>
-          <h1>Senior Software Engineer building reliable products with a strong engineering mindset.</h1>
+          <h1 id="about-title">Senior Software Engineer building reliable products with a strong engineering mindset.</h1>
           <p class="lead">
             I’m Chirag Dodiya, a Senior Software Engineer focused on designing scalable systems,
             shipping maintainable code, and turning business needs into clear technical outcomes.
             I enjoy working across product, architecture, and delivery to create software that is
             fast, resilient, and easy to evolve.
           </p>
-          <div class="actions">
+          <div class="actions" aria-label="Primary actions">
             <a class="btn btn-primary" href="index.html#contact">Contact Me</a>
             <a class="btn btn-secondary" href="index.html#projects">View Projects</a>
           </div>
         </div>
 
-        <aside class="panel profile-card">
+        <aside class="panel profile-card" aria-labelledby="profile-title">
           <div class="profile-photo" role="img" aria-label="Professional portrait placeholder"></div>
           <div class="profile-meta">
-            <div class="name">Chirag Dodiya</div>
+            <div class="name" id="profile-title">Chirag Dodiya</div>
             <div class="role">Senior Software Engineer</div>
           </div>
           <div class="quick-facts" aria-label="Quick facts">
@@ -490,11 +534,11 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" aria-labelledby="overview-title">
       <div class="container">
         <div class="section-header">
           <div>
-            <h2 class="section-title">Professional overview</h2>
+            <h2 class="section-title" id="overview-title">Professional overview</h2>
             <p class="section-copy">
               A concise summary of my background, technical strengths, and the way I contribute to
               modern software teams.
@@ -548,12 +592,12 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" aria-labelledby="cta-title">
       <div class="container">
         <div class="cta">
           <div class="cta-grid">
             <div>
-              <h2 class="section-title">Let’s build something impactful.</h2>
+              <h2 class="section-title" id="cta-title">Let’s build something impactful.</h2>
               <p class="section-copy">
                 If you’re looking for a Senior Software Engineer who brings technical depth, product
                 thinking, and dependable execution, I’d be glad to connect.
@@ -561,9 +605,9 @@
             </div>
             <div>
               <a class="btn btn-primary" href="mailto:chiragdodiya@example.com">Email Chirag</a>
-              <ul class="contact-list">
+              <ul class="contact-list" aria-label="Contact links">
                 <li>Email: <a href="mailto:chiragdodiya@example.com">chiragdodiya@example.com</a></li>
-                <li>LinkedIn: <a href="https://www.linkedin.com" target="_blank" rel="noopener">View profile</a></li>
+                <li>LinkedIn: <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">View profile</a></li>
                 <li>Portfolio: <a href="index.html">Return to homepage</a></li>
               </ul>
             </div>
